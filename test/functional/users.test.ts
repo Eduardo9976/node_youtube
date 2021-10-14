@@ -12,7 +12,7 @@ describe('Users functional tests', () => {
         email: 'john@mail.com',
         password: '1234',
       };
-      const response = await (global as any).testRequest.post('/users').send(newUser);
+      const response = await global.testRequest.post('/users').send(newUser);
       expect(response.status).toBe(201);
       await expect(
         AuthService.comparePasswords(newUser.password, response.body.password)
@@ -30,7 +30,7 @@ describe('Users functional tests', () => {
         email: 'john@mail.com',
         password: '1234',
       };
-      const response = await (global as any).testRequest.post('/users').send(newUser);
+      const response = await global.testRequest.post('/users').send(newUser);
 
       expect(response.status).toBe(422);
       expect(response.body).toEqual({
@@ -45,8 +45,8 @@ describe('Users functional tests', () => {
         email: 'john@mail.com',
         password: '1234',
       };
-      await (global as any).testRequest.post('/users').send(newUser);
-      const response = await (global as any).testRequest.post('/users').send(newUser);
+      await global.testRequest.post('/users').send(newUser);
+      const response = await global.testRequest.post('/users').send(newUser);
 
       expect(response.status).toBe(409);
       expect(response.body).toEqual({
@@ -65,7 +65,7 @@ describe('Users functional tests', () => {
         password: '1234',
       };
       await new User(newUser).save();
-      const response = await (global as any).testRequest
+      const response = await global.testRequest
         .post('/users/authenticate')
         .send({ email: newUser.email, password: newUser.password });
         
@@ -74,7 +74,7 @@ describe('Users functional tests', () => {
       );
     });
     it('Should return UNAUTHORIZED if the user with the given email is not found', async () => {
-      const response = await (global as any).testRequest
+      const response = await global.testRequest
         .post('/users/authenticate')
         .send({ email: 'some-email@mail.com', password: '1234' });
         
@@ -88,7 +88,7 @@ describe('Users functional tests', () => {
         password: '1234',
       };
       await new User(newUser).save();
-      const response = await (global as any).testRequest
+      const response = await global.testRequest
         .post('/users/authenticate')
         .send({ email: newUser.email, password: 'different password' });
 
