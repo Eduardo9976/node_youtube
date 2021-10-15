@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run test:unit && npm run test:functional",
     "build": "tsc",
-    "start": "npm run build && node dist/src/index.js",
+    "start": "node dist/src/index.js",
     "start:dev": "ts-node-dev --transpile-only src/index.ts",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
@@ -14,6 +14,11 @@
     "style:fix": "prettier --write src/**/*.ts test/**/*.ts",
     "test:functional": "jest --projects ./test --runInBand",
     "test:unit": "jest"
+  },
+  "engines": {"node": "12"},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eduardo9976/node_youtube.git"
   },
   "keywords": [],
   "author": "",
