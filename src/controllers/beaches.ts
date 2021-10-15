@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { Beach } from '@src/models/beach';
 import mongoose from 'mongoose';
 import { authMiddleware } from '@src/middlewares/auth';
+import logger from '@src/logger';
 
 @Controller('beaches')
 @ClassMiddleware(authMiddleware)
@@ -16,8 +17,10 @@ export class BeachesController {
       res.status(201).send(result);
     } catch (error) {
       if (error instanceof mongoose.Error.ValidationError) {
+        logger.error(error as any)
         res.status(422).send({ error: error.message });
       } else {
+        logger.error(error as any)
         res.status(500).send({ error: 'Internal Server Error' });
       }
     }
